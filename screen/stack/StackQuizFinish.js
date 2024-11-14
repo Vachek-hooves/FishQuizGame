@@ -12,6 +12,7 @@ const StackQuizFinish = ({ route, navigation }) => {
   const progress = correctAnswers / totalQuestions;
 
   const handleFinish = () => {
+    // navigation.navigate('TabQuizScreen');
     navigation.navigate('TabQuizScreen');
   };
 
