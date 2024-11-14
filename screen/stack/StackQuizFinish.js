@@ -15,10 +15,10 @@ const StackQuizFinish = ({ route, navigation }) => {
     navigation.navigate('TabQuizScreen');
   };
 
-  const handleShare = () => {
-    // Implement share functionality
-    console.log('Share functionality to be implemented');
-  };
+//   const handleShare = () => {
+//     // Implement share functionality
+//     console.log('Share functionality to be implemented');
+//   };
 
   return (
     <View style={styles.container}>
