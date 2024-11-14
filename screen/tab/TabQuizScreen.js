@@ -2,12 +2,17 @@ import { StyleSheet, Text, View, ActivityIndicator, FlatList, TouchableOpacity,P
 import React from 'react'
 import { useFishStore } from '../../store/fishStore'
 import Icon from 'react-native-vector-icons/Ionicons'
-// import { Ionicons } from '@expo/vector-icons'
+
+
 
 const isIOS = Platform.OS === 'ios'
 
-const TabQuizScreen = () => {
+const TabQuizScreen = ({navigation}) => {
   const { quizData, isLoading } = useFishStore()
+
+  const handleStartQuiz = (quiz) => {
+    navigation.navigate('StackQuizGame', { quizId: quiz.id })
+  }
 
   if (isLoading) {
     return (
@@ -31,14 +36,13 @@ const TabQuizScreen = () => {
               <Text style={styles.questionsCount}>
                 Here's a quiz with {item.questions.length} questions
               </Text>
-              <TouchableOpacity style={styles.startButton}>
+              <TouchableOpacity 
+                style={styles.startButton}
+                onPress={() => handleStartQuiz(item)}
+              >
                 <Text style={styles.startButtonText}>Start quiz</Text>
               </TouchableOpacity>
             </View>
-            {/* <TouchableOpacity style={styles.shareButton}>
-                {<Icon name="share-social-sharp" size={24} color="#007AFF" /> }
-             
-            </TouchableOpacity> */}
           </View>
         )}
       />

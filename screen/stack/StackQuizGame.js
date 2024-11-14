@@ -1,14 +1,255 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native';
+import { useFishStore } from '../../store/fishStore';
+import Icon from 'react-native-vector-icons/Ionicons';
+import ProgressBar from '../../components/ui/ProgressBar';
 
-const StackQuizGame = () => {
+
+const isIOS = Platform.OS === 'ios';
+const LETTERS = ['A', 'B', 'C', 'D'];
+
+const StackQuizGame = ({ route }) => {
+  const { quizId } = route.params;
+  const { quizData } = useFishStore();
+  const [currentQuiz, setCurrentQuiz] = useState(null);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+
+  useEffect(() => {
+    const quiz = quizData.find(q => q.id === quizId);
+    setCurrentQuiz(quiz);
+  }, [quizId, quizData]);
+
+  if (!currentQuiz) return null;
+
+  const currentQuestion = currentQuiz.questions[currentQuestionIndex];
+  const progress = (currentQuestionIndex + 1) / currentQuiz.questions.length;
+
+  const handleAnswer = (answer) => {
+    setSelectedAnswer(answer);
+  };
+
+  const handleContinue = () => {
+    if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+      setCurrentQuestionIndex(prev => prev + 1);
+      setSelectedAnswer(null);
+    }
+  };
+
+  const renderOption = (option, index) => {
+    const isSelected = selectedAnswer === option;
+    const isCorrect = option === currentQuestion.correctOption;
+    const isWrong = isSelected && !isCorrect;
+
+    return (
+      <TouchableOpacity
+        key={index}
+        style={[
+          styles.optionButton,
+          isSelected && styles.selectedOption,
+          selectedAnswer && isCorrect && styles.correctOption,
+          isWrong && styles.wrongOption,
+        ]}
+        onPress={() => handleAnswer(option)}
+        disabled={selectedAnswer !== null}
+      >
+        <View style={styles.optionContent}>
+          <View style={styles.optionLeft}>
+            <View style={[
+              styles.letterCircle,
+              isSelected && styles.selectedLetterCircle,
+              selectedAnswer && isCorrect && styles.correctLetterCircle,
+              isWrong && styles.wrongLetterCircle,
+            ]}>
+              <Text style={[
+                styles.letterText,
+                (isSelected || selectedAnswer && isCorrect) && styles.selectedLetterText
+              ]}>
+                {LETTERS[index]}
+              </Text>
+            </View>
+            <Text style={[
+              styles.optionText,
+              isSelected && styles.selectedOptionText,
+              selectedAnswer && isCorrect && styles.correctOptionText,
+              isWrong && styles.wrongOptionText,
+            ]}>
+              {option}
+            </Text>
+          </View>
+          {selectedAnswer && (isCorrect ? (
+            <View style={styles.iconContainer}>
+              <Icon name="checkmark-circle" size={36} color="#4CD964" />
+            </View>
+          ) : isWrong ? (
+            <View style={styles.iconContainer}>
+              <Icon name="close-circle" size={36} color="#FF3B30" />
+            </View>
+          ) : null)}
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
   return (
-    <View>
-      <Text>StackQuizGame</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Quiz</Text>
+      
+      <View style={styles.progressContainer}>
+        <ProgressBar progress={progress} />
+        <Text style={styles.progressText}>
+          {currentQuestionIndex + 1}/{currentQuiz.questions.length}
+        </Text>
+      </View>
+
+      <Text style={styles.question}>
+        Question {currentQuestionIndex + 1}: {currentQuestion.question}
+      </Text>
+
+      <View style={styles.optionsContainer}>
+        {currentQuestion.options.map((option, index) => renderOption(option, index))}
+      </View>
+
+      {selectedAnswer && (
+        <TouchableOpacity 
+          style={styles.continueButton}
+          onPress={handleContinue}
+        >
+          <Text style={styles.continueButtonText}>Continue</Text>
+        </TouchableOpacity>
+      )}
     </View>
-  )
-}
+  );
+};
 
-export default StackQuizGame
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 16,
+    paddingTop: isIOS ? 60 : 16,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#007AFF',
+    marginBottom: 24,
+  },
+  progressContainer: {
+    marginBottom: 32,
+  },
+  progressText: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 8,
+    alignSelf: 'flex-end',
+  },
+  question: {
+    fontSize: 22,
+    fontWeight: '600',
+    color: '#000',
+    marginBottom: 32,
+    textAlign: 'center',
+  },
+  optionsContainer: {
+    gap: 12,
+   
+  },
+  optionButton: {
+    padding: 16,
+    borderRadius: 12,
+    backgroundColor: '#F8F8F8',
+    borderWidth: 1,
+    borderColor: '#E5E5E5',
+    height: 90,
+    justifyContent: 'center',
+  },
+  optionContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  optionLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  letterCircle: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: '#E5E5E5',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  letterText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#666',
+  },
+  selectedLetterCircle: {
+    backgroundColor: '#007AFF',
+    borderColor: '#fff',
+  },
+  correctLetterCircle: {
+    backgroundColor: '#4CD964',
+    borderColor: '#fff',
+  },
+  wrongLetterCircle: {
+    backgroundColor: '#FF3B30',
+    borderColor: '#fff',
+  },
+  selectedLetterText: {
+    color: '#fff',
+  },
+  optionText: {
+    fontSize: 16,
+    color: '#000',
+    flex: 1,
+  },
+  selectedOptionText: {
+    color: '#fff',
+  },
+  correctOptionText: {
+    color: '#fff',
+  },
+  wrongOptionText: {
+    color: '#fff',
+  },
+  selectedOption: {
+    backgroundColor: '#007AFF',
+    borderColor: '#007AFF',
+  },
+  correctOption: {
+    backgroundColor: '#4CD964',
+    borderColor: '#4CD964',
+  },
+  wrongOption: {
+    backgroundColor: '#FF3B30',
+    borderColor: '#FF3B30',
+  },
+  continueButton: {
+    backgroundColor: '#007AFF',
+    padding: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginTop: 'auto',
+    marginBottom: '10%',
+  },
+  continueButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+    
+  },
+  iconContainer: {
+   padding: 6,
+   borderRadius: 26,
+   backgroundColor: '#fff',
+},
+});
 
-const styles = StyleSheet.create({})
+export default StackQuizGame;
