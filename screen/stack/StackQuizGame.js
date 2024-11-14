@@ -8,12 +8,13 @@ import ProgressBar from '../../components/ui/ProgressBar';
 const isIOS = Platform.OS === 'ios';
 const LETTERS = ['A', 'B', 'C', 'D'];
 
-const StackQuizGame = ({ route }) => {
+const StackQuizGame = ({ route, navigation }) => {
   const { quizId } = route.params;
   const { quizData } = useFishStore();
   const [currentQuiz, setCurrentQuiz] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
 
   useEffect(() => {
     const quiz = quizData.find(q => q.id === quizId);
@@ -27,12 +28,20 @@ const StackQuizGame = ({ route }) => {
 
   const handleAnswer = (answer) => {
     setSelectedAnswer(answer);
+    if (answer === currentQuestion.correctOption) {
+      setCorrectAnswers(prev => prev + 1);
+    }
   };
 
   const handleContinue = () => {
     if (currentQuestionIndex < currentQuiz.questions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
       setSelectedAnswer(null);
+    } else {
+      navigation.navigate('StackQuizFinish', {
+        correctAnswers,
+        totalQuestions: currentQuiz.questions.length,
+      });
     }
   };
 
