@@ -9,6 +9,7 @@ import {
   StackLikedFacts,
 } from './screen/stack';
 import {FishStoreProvider} from './store/fishStore';
+import PostCardDetails from './components/screenComponents/MainScreen/PostCardDetails';
 
 import TabNagation from './TabNavigation/TabNagation';
 const Stack = createNativeStackNavigator();
@@ -32,6 +33,7 @@ function App() {
           <Stack.Screen name="StackQuizFinish" component={StackQuizFinish} />
           <Stack.Screen name="StackDailyFactDetails" component={StackDailyFactDetails} />
           <Stack.Screen name="StackLikedFacts" component={StackLikedFacts} />
+          <Stack.Screen name="PostCardDetails" component={PostCardDetails} />
         </Stack.Navigator>
       </NavigationContainer>
     </FishStoreProvider>
