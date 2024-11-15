@@ -1,8 +1,10 @@
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, SafeAreaView , TouchableOpacity} from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
 
 const PostCardDetails = ({ route }) => {
   const { post } = route.params;
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -19,6 +21,9 @@ const PostCardDetails = ({ route }) => {
         
         <Text style={styles.conclusion}>{post.conclusion}</Text>
       </ScrollView>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Text style={styles.backButtonText}>Back</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   )
 }
@@ -66,5 +71,17 @@ const styles = StyleSheet.create({
     marginBottom: 32,
     fontStyle: 'italic',
     lineHeight: 24,
+  },
+  backButton: {
+    backgroundColor: '#007AFF',
+    padding: 12,
+    alignItems: 'center',
+    margin: 16,
+    borderRadius: 8,
+  },
+  backButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
   }
 })
