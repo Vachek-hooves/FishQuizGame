@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
 import DailyFacts from '../../components/screenComponents/MainScreen/DailyFacts';
 import PostCard from '../../components/screenComponents/MainScreen/PostCard';
+import CreatePostCard from '../../components/screenComponents/MainScreen/CreatePostCard';
 import { POSTS } from '../../data/posts';
 
 const TabMainScreen = () => {
@@ -16,6 +17,8 @@ const TabMainScreen = () => {
         {randomPosts.map(post => (
           <PostCard key={post.id} post={post} />
         ))}
+
+        <CreatePostCard />
       </ScrollView>
     </View>
   )
