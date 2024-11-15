@@ -1,13 +1,33 @@
-import { StyleSheet, Text, View, TouchableOpacity, Share } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Share, Alert } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { useFishStore } from '../../../store/fishStore';
 
 const PostCard = ({ post }) => {
   const navigation = useNavigation();
+  const { deleteCustomPost } = useFishStore();
+
+  const handleDelete = () => {
+    Alert.alert(
+      'Delete Post',
+      'Are you sure you want to delete this post?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          onPress: () => deleteCustomPost(post.id),
+          style: 'destructive',
+        },
+      ]
+    );
+  };
 
   return (
     <View style={styles.card}>
-      <Text style={styles.didYouKnow}>Read blog</Text>
       <Text style={styles.title}>{post.title}</Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity 
@@ -16,7 +36,15 @@ const PostCard = ({ post }) => {
         >
           <Text style={styles.readButtonText}>Read now</Text>
         </TouchableOpacity>
-      
+        
+        {post.isCustom && (
+          <TouchableOpacity 
+            style={styles.deleteButton}
+            onPress={handleDelete}
+          >
+            <Icon name="trash" size={20} color="#ff4444" />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   )
@@ -70,5 +98,8 @@ const styles = StyleSheet.create({
   },
   shareIcon: {
     fontSize: 20,
-  }
+  },
+  deleteButton: {
+    padding: 8,
+  },
 })

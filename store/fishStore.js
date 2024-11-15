@@ -10,6 +10,7 @@ const DAILY_FACTS_STORAGE_KEY = '@daily_facts_data';
 const FACT_REACTIONS_KEY = '@fact_reactions';
 const QUIZ_POINTS_KEY = '@quiz_points';
 const QUIZ_UNLOCK_KEY = '@quiz_unlock_status';
+const CUSTOM_POSTS_KEY = '@custom_posts';
 
 export const FishStoreProvider = ({children}) => {
     const [quizData, setQuizData] = useState([]);
@@ -18,6 +19,7 @@ export const FishStoreProvider = ({children}) => {
     const [dailyFacts, setDailyFacts] = useState([]);
     const [factReactions, setFactReactions] = useState({});
     const [quizPoints, setQuizPoints] = useState({});
+    const [customPosts, setCustomPosts] = useState([]);
 
     // Initialize quiz data
     const initQuizData = async () => {
@@ -27,6 +29,7 @@ export const FishStoreProvider = ({children}) => {
             const storedReactions = await AsyncStorage.getItem(FACT_REACTIONS_KEY);
             const storedPoints = await AsyncStorage.getItem(QUIZ_POINTS_KEY);
             const storedUnlockStatus = await AsyncStorage.getItem(QUIZ_UNLOCK_KEY);
+            const storedCustomPosts = await AsyncStorage.getItem(CUSTOM_POSTS_KEY);
             
             if (!storedQuizData) {
                 const initialQuizData = FISH_QUIZ.map((quiz, index) => ({
@@ -56,6 +59,9 @@ export const FishStoreProvider = ({children}) => {
                 const initialUnlockStatus = { '1': true }; // First quiz unlocked
                 await AsyncStorage.setItem(QUIZ_UNLOCK_KEY, JSON.stringify(initialUnlockStatus));
                 setQuizUnlockStatus(initialUnlockStatus);
+            }
+            if (storedCustomPosts) {
+                setCustomPosts(JSON.parse(storedCustomPosts));
             }
         } catch (error) {
             console.error('Error initializing data:', error);
@@ -106,6 +112,26 @@ export const FishStoreProvider = ({children}) => {
         }
     };
 
+    const addCustomPost = async (newPost) => {
+        try {
+            const updatedPosts = [...customPosts, newPost];
+            await AsyncStorage.setItem(CUSTOM_POSTS_KEY, JSON.stringify(updatedPosts));
+            setCustomPosts(updatedPosts);
+        } catch (error) {
+            console.error('Error adding custom post:', error);
+        }
+    };
+
+    const deleteCustomPost = async (postId) => {
+        try {
+            const updatedPosts = customPosts.filter(post => post.id !== postId);
+            await AsyncStorage.setItem(CUSTOM_POSTS_KEY, JSON.stringify(updatedPosts));
+            setCustomPosts(updatedPosts);
+        } catch (error) {
+            console.error('Error deleting custom post:', error);
+        }
+    };
+
     useEffect(() => {
         initQuizData();
     }, []);
@@ -119,6 +145,9 @@ export const FishStoreProvider = ({children}) => {
         quizUnlockStatus,
         updateFactReaction,
         updateQuizPoints,
+        customPosts,
+        addCustomPost,
+        deleteCustomPost,
     };
     
     return <FishStoreContext.Provider value={value}>{children}</FishStoreContext.Provider>

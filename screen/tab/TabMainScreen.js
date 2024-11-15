@@ -4,9 +4,14 @@ import DailyFacts from '../../components/screenComponents/MainScreen/DailyFacts'
 import PostCard from '../../components/screenComponents/MainScreen/PostCard';
 import CreatePostCard from '../../components/screenComponents/MainScreen/CreatePostCard';
 import { POSTS } from '../../data/posts';
+import { useFishStore } from '../../store/fishStore';
 
 const TabMainScreen = () => {
+  const { customPosts } = useFishStore();
+  // const allPosts = [...POSTS, ...customPosts];
   const randomPosts = POSTS.sort(() => Math.random() - 0.5).slice(0, 1);
+ 
+
   return (
     <View style={styles.container}>
       <SafeAreaView />
@@ -17,8 +22,14 @@ const TabMainScreen = () => {
         {randomPosts.map(post => (
           <PostCard key={post.id} post={post} />
         ))}
-
         <CreatePostCard />
+        
+        <Text style={styles.userPostsTitle}>User posts:</Text>
+        {customPosts.length > 0 && (
+          customPosts.map(post => (
+            <PostCard key={post.id} post={post} />
+          ))
+        )}
       </ScrollView>
     </View>
   )
@@ -39,6 +50,13 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   sectionTitle: {
+    fontSize: 18,
+    fontWeight: '500',
+    marginLeft: 16,
+    marginTop: 16,
+    color: '#333',
+  },
+  userPostsTitle: {
     fontSize: 18,
     fontWeight: '500',
     marginLeft: 16,
