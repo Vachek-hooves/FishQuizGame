@@ -5,6 +5,8 @@ import {
   StackWelcomeScreen,
   StackQuizGame,
   StackQuizFinish,
+  StackDailyFactDetails,
+  StackLikedFacts,
 } from './screen/stack';
 import {FishStoreProvider} from './store/fishStore';
 
@@ -28,6 +30,8 @@ function App() {
           <Stack.Screen name="TabNavigation" component={TabNagation} />
           <Stack.Screen name="StackQuizGame" component={StackQuizGame} />
           <Stack.Screen name="StackQuizFinish" component={StackQuizFinish} />
+          <Stack.Screen name="StackDailyFactDetails" component={StackDailyFactDetails} />
+          <Stack.Screen name="StackLikedFacts" component={StackLikedFacts} />
         </Stack.Navigator>
       </NavigationContainer>
     </FishStoreProvider>
