@@ -13,7 +13,9 @@ const StackQuizFinish = ({ route, navigation }) => {
 
   const handleFinish = () => {
     // navigation.navigate('TabQuizScreen');
-    navigation.navigate('TabQuizScreen');
+    navigation.navigate('TabNavigation',{
+        screen: 'TabQuizScreen',
+    });
   };
 
 //   const handleShare = () => {

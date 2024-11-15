@@ -14,7 +14,7 @@ export function StackWelcomeScreen({navigation}) {
       </Text>
       <TouchableOpacity 
         style={styles.button}
-        onPress={() => navigation.navigate('TabNagation')}
+        onPress={() => navigation.navigate('TabNavigation')}
       >
         <Text style={styles.buttonText}>Let's go!</Text>
       </TouchableOpacity>
