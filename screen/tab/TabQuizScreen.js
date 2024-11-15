@@ -8,11 +8,38 @@ import Icon from 'react-native-vector-icons/Ionicons'
 const isIOS = Platform.OS === 'ios'
 
 const TabQuizScreen = ({navigation}) => {
-  const { quizData, isLoading } = useFishStore()
+  const { quizData, isLoading, quizPoints } = useFishStore()
 
   const handleStartQuiz = (quiz) => {
     navigation.navigate('StackQuizGame', { quizId: quiz.id })
   }
+
+  const renderQuizItem = ({ item }) => {
+    const points = quizPoints[item.id] || 0;
+    
+    return (
+      <View style={styles.quizItem}>
+        <View style={styles.quizContent}>
+          <Text style={styles.quizName}>"{item.quizName}"</Text>
+          <Text style={styles.questionsCount}>
+            Here's a quiz with {item.questions.length} questions
+          </Text>
+          <View style={styles.pointsContainer}>
+            <Icon name="trophy-outline" size={16} color="#FFD700" />
+            <Text style={styles.pointsText}>{points} points</Text>
+          </View>
+          <TouchableOpacity 
+            style={styles.startButton}
+            onPress={() => handleStartQuiz(item)}
+          >
+            <Text style={styles.startButtonText}>
+              {points > 0 ? 'Try Again' : 'Start quiz'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
 
   if (isLoading) {
     return (
@@ -29,22 +56,7 @@ const TabQuizScreen = ({navigation}) => {
       <FlatList
         data={quizData}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.quizItem}>
-            <View style={styles.quizContent}>
-              <Text style={styles.quizName}>"{item.quizName}"</Text>
-              <Text style={styles.questionsCount}>
-                Here's a quiz with {item.questions.length} questions
-              </Text>
-              <TouchableOpacity 
-                style={styles.startButton}
-                onPress={() => handleStartQuiz(item)}
-              >
-                <Text style={styles.startButtonText}>Start quiz</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
+        renderItem={renderQuizItem}
       />
     </View>
   )
@@ -121,5 +133,16 @@ const styles = StyleSheet.create({
   },
   shareButton: {
     padding: 4,
+  },
+  pointsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+    gap: 4,
+  },
+  pointsText: {
+    fontSize: 14,
+    color: '#666',
+    fontWeight: '600',
   },
 })

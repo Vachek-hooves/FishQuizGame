@@ -10,7 +10,7 @@ const LETTERS = ['A', 'B', 'C', 'D'];
 
 const StackQuizGame = ({ route, navigation }) => {
   const { quizId } = route.params;
-  const { quizData } = useFishStore();
+  const { quizData, updateQuizPoints } = useFishStore();
   const [currentQuiz, setCurrentQuiz] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -38,9 +38,11 @@ const StackQuizGame = ({ route, navigation }) => {
       setCurrentQuestionIndex(prev => prev + 1);
       setSelectedAnswer(null);
     } else {
+      updateQuizPoints(quizId, correctAnswers);
       navigation.navigate('StackQuizFinish', {
         correctAnswers,
         totalQuestions: currentQuiz.questions.length,
+        points: correctAnswers * 10,
       });
     }
   };
