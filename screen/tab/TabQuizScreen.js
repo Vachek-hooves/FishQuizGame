@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   Platform,
+  Alert,
 } from 'react-native';
 import React from 'react';
 import {useFishStore} from '../../store/fishStore';
@@ -14,32 +15,79 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const isIOS = Platform.OS === 'ios';
 
 const TabQuizScreen = ({navigation}) => {
-  const {quizData, isLoading, quizPoints} = useFishStore();
+  const {quizData, isLoading, quizPoints, quizUnlockStatus} = useFishStore();
 
   const handleStartQuiz = quiz => {
+    if (!quizUnlockStatus[quiz.id]) {
+      Alert.alert(
+        'Quiz Locked',
+        'Complete the previous quiz with 80 points or more to unlock this quiz!',
+        [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+      );
+      return;
+    }
     navigation.navigate('StackQuizGame', {quizId: quiz.id});
   };
 
-  const renderQuizItem = ({item}) => {
+  const renderQuizItem = ({item, index}) => {
     const points = quizPoints[item.id] || 0;
+    const isLocked = !quizUnlockStatus[item.id];
+    const previousQuizPoints = index > 0 ? quizPoints[String(index)] || 0 : 100;
 
     return (
-      <View style={styles.quizItem}>
+      <View style={[
+        styles.quizItem,
+        isLocked && styles.lockedQuizItem
+      ]}>
         <View style={styles.quizContent}>
-          <Text style={styles.quizName}>"{item.quizName}"</Text>
-          <Text style={styles.questionsCount}>
-            Here's a quiz with {item.questions.length} questions
+          <View style={styles.quizHeader}>
+            <Text style={[
+              styles.quizName,
+              isLocked && styles.lockedText
+            ]}>
+              "{item.quizName}"
+            </Text>
+            {isLocked && (
+              <Icon name="lock-closed" size={20} color="#666" />
+            )}
+          </View>
+          
+          <Text style={[
+            styles.questionsCount,
+            isLocked && styles.lockedText
+          ]}>
+            {isLocked 
+              ? `Complete previous quiz with 80+ points to unlock`
+              : `Here's a quiz with ${item.questions.length} questions`
+            }
           </Text>
+
           <View style={styles.quizPointsContainer}>
             <View style={styles.pointsContainer}>
-              <Icon name="trophy-outline" size={16} color="#FFD700" />
-              <Text style={styles.pointsText}>{points} points</Text>
+              <Icon 
+                name="trophy-outline" 
+                size={16} 
+                color={isLocked ? "#666" : "#FFD700"} 
+              />
+              <Text style={[
+                styles.pointsText,
+                isLocked && styles.lockedText
+              ]}>
+                {points} points
+              </Text>
             </View>
+
             <TouchableOpacity
-              style={styles.startButton}
+              style={[
+                styles.startButton,
+                isLocked && styles.lockedButton
+              ]}
               onPress={() => handleStartQuiz(item)}>
-              <Text style={styles.startButtonText}>
-                {points > 0 ? 'Try Again' : 'Start quiz'}
+              <Text style={[
+                styles.startButtonText,
+                isLocked && styles.lockedButtonText
+              ]}>
+                {isLocked ? 'Locked' : points > 0 ? 'Try Again' : 'Start quiz'}
               </Text>
             </TouchableOpacity>
           </View>
@@ -157,5 +205,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  lockedQuizItem: {
+    opacity: 0.7,
+    backgroundColor: '#F5F5F5',
+  },
+  lockedText: {
+    color: '#666',
+  },
+  lockedButton: {
+    backgroundColor: '#E5E5E5',
+    borderColor: '#666',
+  },
+  lockedButtonText: {
+    color: '#666',
+  },
+  quizHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
   },
 });

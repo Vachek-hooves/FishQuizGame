@@ -9,9 +9,11 @@ const QUIZ_STORAGE_KEY = '@fish_quiz_data';
 const DAILY_FACTS_STORAGE_KEY = '@daily_facts_data';
 const FACT_REACTIONS_KEY = '@fact_reactions';
 const QUIZ_POINTS_KEY = '@quiz_points';
+const QUIZ_UNLOCK_KEY = '@quiz_unlock_status';
 
 export const FishStoreProvider = ({children}) => {
     const [quizData, setQuizData] = useState([]);
+    const [quizUnlockStatus, setQuizUnlockStatus] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [dailyFacts, setDailyFacts] = useState([]);
     const [factReactions, setFactReactions] = useState({});
@@ -24,10 +26,15 @@ export const FishStoreProvider = ({children}) => {
             const storedDailyFacts = await AsyncStorage.getItem(DAILY_FACTS_STORAGE_KEY);
             const storedReactions = await AsyncStorage.getItem(FACT_REACTIONS_KEY);
             const storedPoints = await AsyncStorage.getItem(QUIZ_POINTS_KEY);
+            const storedUnlockStatus = await AsyncStorage.getItem(QUIZ_UNLOCK_KEY);
             
             if (!storedQuizData) {
-                await AsyncStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(FISH_QUIZ));
-                setQuizData(FISH_QUIZ);
+                const initialQuizData = FISH_QUIZ.map((quiz, index) => ({
+                    ...quiz,
+                    isLocked: index !== 0
+                }));
+                await AsyncStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(initialQuizData));
+                setQuizData(initialQuizData);
             } else {
                 setQuizData(JSON.parse(storedQuizData));
             }
@@ -42,6 +49,13 @@ export const FishStoreProvider = ({children}) => {
             }
             if (storedPoints) {
                 setQuizPoints(JSON.parse(storedPoints));
+            }
+            if (storedUnlockStatus) {
+                setQuizUnlockStatus(JSON.parse(storedUnlockStatus));
+            } else {
+                const initialUnlockStatus = { '1': true }; // First quiz unlocked
+                await AsyncStorage.setItem(QUIZ_UNLOCK_KEY, JSON.stringify(initialUnlockStatus));
+                setQuizUnlockStatus(initialUnlockStatus);
             }
         } catch (error) {
             console.error('Error initializing data:', error);
@@ -68,7 +82,6 @@ export const FishStoreProvider = ({children}) => {
             const points = correctAnswers * 10;
             const currentPoints = quizPoints[quizId] || 0;
             
-            // Only update if new score is higher
             if (points > currentPoints) {
                 const updatedPoints = {
                     ...quizPoints,
@@ -76,6 +89,17 @@ export const FishStoreProvider = ({children}) => {
                 };
                 await AsyncStorage.setItem(QUIZ_POINTS_KEY, JSON.stringify(updatedPoints));
                 setQuizPoints(updatedPoints);
+
+                // Check if points are enough to unlock next quiz
+                if (points >= 80) {
+                    const nextQuizId = (parseInt(quizId) + 1).toString();
+                    const updatedUnlockStatus = {
+                        ...quizUnlockStatus,
+                        [nextQuizId]: true
+                    };
+                    await AsyncStorage.setItem(QUIZ_UNLOCK_KEY, JSON.stringify(updatedUnlockStatus));
+                    setQuizUnlockStatus(updatedUnlockStatus);
+                }
             }
         } catch (error) {
             console.error('Error updating quiz points:', error);
@@ -92,6 +116,7 @@ export const FishStoreProvider = ({children}) => {
         dailyFacts,
         factReactions,
         quizPoints,
+        quizUnlockStatus,
         updateFactReaction,
         updateQuizPoints,
     };
