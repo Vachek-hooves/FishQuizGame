@@ -1,10 +1,12 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import DailyFacts from '../../components/screenComponents/MainScreen/DailyFacts';
+
 
 const TabMainScreen = () => {
   return (
     <View>
       <Text>TabMainScreen</Text>
+      <DailyFacts />
     </View>
   )
 }
