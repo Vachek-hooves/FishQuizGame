@@ -7,10 +7,13 @@ export const FishStoreContext = createContext();
 
 const QUIZ_STORAGE_KEY = '@fish_quiz_data';
 const DAILY_FACTS_STORAGE_KEY = '@daily_facts_data';
+const FACT_REACTIONS_KEY = '@fact_reactions';
+
 export const FishStoreProvider = ({children}) => {
     const [quizData, setQuizData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [dailyFacts, setDailyFacts] = useState([]);
+    const [factReactions, setFactReactions] = useState({});
 
     // Initialize quiz data
     const initQuizData = async () => {
@@ -18,9 +21,9 @@ export const FishStoreProvider = ({children}) => {
             // Check if quiz data exists in storage
             const storedQuizData = await AsyncStorage.getItem(QUIZ_STORAGE_KEY);
             const storedDailyFacts = await AsyncStorage.getItem(DAILY_FACTS_STORAGE_KEY);
+            const storedReactions = await AsyncStorage.getItem(FACT_REACTIONS_KEY);
             
             if (!storedQuizData) {
-                // If no data exists, store the initial quiz data
                 await AsyncStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(FISH_QUIZ));
                 setQuizData(FISH_QUIZ);
             } else {
@@ -32,20 +35,26 @@ export const FishStoreProvider = ({children}) => {
             } else {
                 setDailyFacts(JSON.parse(storedDailyFacts));
             }
+            if (storedReactions) {
+                setFactReactions(JSON.parse(storedReactions));
+            }
         } catch (error) {
-            console.error('Error initializing quiz data:', error);
+            console.error('Error initializing data:', error);
         } finally {
             setIsLoading(false);
         }
     };
 
-    // Update quiz data
-    const updateQuizData = async (updatedQuiz) => {
+    const updateFactReaction = async (factId, reaction) => {
         try {
-            await AsyncStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(updatedQuiz));
-            setQuizData(updatedQuiz);
+            const updatedReactions = {
+                ...factReactions,
+                [factId]: reaction
+            };
+            await AsyncStorage.setItem(FACT_REACTIONS_KEY, JSON.stringify(updatedReactions));
+            setFactReactions(updatedReactions);
         } catch (error) {
-            console.error('Error updating quiz data:', error);
+            console.error('Error updating fact reaction:', error);
         }
     };
 
@@ -57,7 +66,8 @@ export const FishStoreProvider = ({children}) => {
         quizData,
         isLoading,
         dailyFacts,
-        updateQuizData,
+        factReactions,
+        updateFactReaction,
     };
     
     return <FishStoreContext.Provider value={value}>{children}</FishStoreContext.Provider>
