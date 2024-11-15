@@ -116,11 +116,30 @@ const CreatePostForm = ({ onSubmit }) => {
       <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
         <Text style={styles.submitButtonText}>Create Post</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Text style={styles.backButtonText}>Back</Text>
+      </TouchableOpacity>
+      <View style={styles.space} />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  space: {
+    height: 100,
+  },
+  backButton: {
+    backgroundColor: '#007AFF',
+    padding: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginVertical: 16,
+  },
+  backButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '500',
+  },
   container: {
     padding: 16,
     backgroundColor: 'white',

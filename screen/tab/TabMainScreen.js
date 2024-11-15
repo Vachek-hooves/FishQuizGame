@@ -23,14 +23,17 @@ const TabMainScreen = () => {
           <PostCard key={post.id} post={post} />
         ))}
         <CreatePostCard />
-        
-        <Text style={styles.userPostsTitle}>User posts:</Text>
-        {customPosts.length > 0 && (
-          customPosts.map(post => (
-            <PostCard key={post.id} post={post} />
-          ))
+
+        {customPosts.length > 0 && ( 
+          <>
+            <Text style={styles.userPostsTitle}>User posts:</Text>
+            {customPosts.map(post => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </>
         )}
-      </ScrollView>
+        <View style={styles.space} />
+      </ScrollView> 
     </View>
   )
 }
@@ -62,5 +65,8 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginTop: 16,
     color: '#333',
-  }
+  },
+  space: {
+    height: 100,
+  },
 });
