@@ -78,7 +78,7 @@ const TabNagation = () => {
           },
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="TabInformationScreen"
         component={TabInformationScreen}
         options={{
@@ -91,7 +91,7 @@ const TabNagation = () => {
             fontWeight: '500',
           },
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };
