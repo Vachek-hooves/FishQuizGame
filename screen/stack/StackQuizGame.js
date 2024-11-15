@@ -136,15 +136,18 @@ const StackQuizGame = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#E6F3F8',
     padding: 16,
     paddingTop: isIOS ? 60 : 16,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#007AFF',
+    color: '#1E6B8C',
     marginBottom: 24,
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   progressContainer: {
     marginBottom: 32,
@@ -169,12 +172,12 @@ const styles = StyleSheet.create({
   optionButton: {
     padding: 16,
     borderRadius: 12,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    borderColor: '#E5E5E5',
+    borderColor: '#B2E0F7',
     height: 90,
     justifyContent: 'center',
-    shadowColor: '#000',
+    shadowColor: '#1E6B8C',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -236,8 +239,8 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   selectedOption: {
-    backgroundColor: '#007AFF',
-    borderColor: '#007AFF',
+    backgroundColor: '#2D89B4',
+    borderColor: '#2D89B4',
   },
   correctOption: {
     backgroundColor: '#4CD964',
@@ -248,7 +251,7 @@ const styles = StyleSheet.create({
     borderColor: '#FF3B30',
   },
   continueButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#1E6B8C',
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',

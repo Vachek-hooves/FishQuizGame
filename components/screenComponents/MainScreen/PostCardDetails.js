@@ -32,7 +32,7 @@ export default PostCardDetails
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#E6F3F8',
   },
   scrollView: {
     padding: 16,
@@ -40,8 +40,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#007AFF',
+    color: '#1E6B8C',
     marginBottom: 16,
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   introduction: {
     fontSize: 16,
@@ -51,6 +54,15 @@ const styles = StyleSheet.create({
   },
   factContainer: {
     marginBottom: 20,
+    padding: 16,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#B2E0F7',
+    shadowColor: '#1E6B8C',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   factTitle: {
     fontSize: 18,
@@ -72,7 +84,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   backButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#2D89B4',
     padding: 12,
     alignItems: 'center',
     margin: 16,

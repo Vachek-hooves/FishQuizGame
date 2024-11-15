@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     height: 100,
   },
   backButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#1E6B8C',
     padding: 16,
     borderRadius: 8,
     alignItems: 'center',
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 16,
-    backgroundColor: 'white',
+    backgroundColor: '#E6F3F8',
     marginTop: '10%',
   },
   label: {
@@ -153,11 +153,11 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#B2E0F7',
     borderRadius: 8,
     padding: 12,
     marginBottom: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
   },
   textArea: {
     height: 100,
@@ -166,8 +166,10 @@ const styles = StyleSheet.create({
   factContainer: {
     marginBottom: 16,
     padding: 16,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#FFFFFF',
     borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#B2E0F7',
   },
   addButton: {
     backgroundColor: '#4CAF50',
@@ -190,7 +192,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   submitButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#2D89B4',
     padding: 16,
     borderRadius: 8,
     alignItems: 'center',

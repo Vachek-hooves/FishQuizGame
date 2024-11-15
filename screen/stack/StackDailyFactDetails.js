@@ -98,7 +98,7 @@ const StackDailyFactDetails = ({ route }) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#E6F3F8',
   },
   scrollView: {
     flex: 1,
@@ -127,15 +127,14 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   factCard: {
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#FFFFFF',
     borderRadius: 16,
     padding: 20,
     marginBottom: 24,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    borderWidth: 1,
+    borderColor: '#B2E0F7',
+    shadowColor: '#1E6B8C',
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
@@ -143,7 +142,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#1E6B8C',
     marginBottom: 16,
   },
   factText: {
@@ -156,10 +155,12 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
   infoCard: {
-    backgroundColor: '#F0F8FF',
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     padding: 16,
     gap: 8,
+    borderWidth: 1,
+    borderColor: '#B2E0F7',
   },
   infoTitle: {
     fontSize: 18,
