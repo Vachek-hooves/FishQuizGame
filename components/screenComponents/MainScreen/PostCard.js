@@ -5,16 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 const PostCard = ({ post }) => {
   const navigation = useNavigation();
 
-//   const handleShare = async () => {
-//     try {
-//       await Share.share({
-//         message: `${post.title}\n\n${post.introduction}`,
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
   return (
     <View style={styles.card}>
       <Text style={styles.didYouKnow}>Read blog</Text>
@@ -26,9 +16,7 @@ const PostCard = ({ post }) => {
         >
           <Text style={styles.readButtonText}>Read now</Text>
         </TouchableOpacity>
-        {/* <TouchableOpacity onPress={handleShare} style={styles.shareButton}>
-          <Text style={styles.shareIcon}>📤</Text>
-        </TouchableOpacity> */}
+      
       </View>
     </View>
   )
@@ -38,20 +26,18 @@ export default PostCard
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'white',
     borderRadius: 12,
     padding: 16,
     margin: 16,
-    marginTop: 8,
-    marginBottom: 8,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
     elevation: 3,
+    marginVertical:30,
+    shadowColor: '#007AFF',
+    backgroundColor: '#E5E5E5',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+
   },
   didYouKnow: {
     color: '#666',

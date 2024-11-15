@@ -46,7 +46,7 @@ export const POSTS = [
       }
     ],
     conclusion: "These remarkable facts remind us of the diversity and wonder of marine life. Want to learn more? Dive into our app for fascinating facts that will deepen your appreciation for these aquatic creatures.",
-    createdAt: new Date("2024-03-20"),
+    createdAt: "2024-03-20",
     category: "Marine Biology",
     tags: ["fish", "marine life", "ocean", "biology", "facts"]
   },
@@ -77,7 +77,7 @@ export const POSTS = [
       }
     ],
     conclusion: "The deep-sea realm is filled with wonders that showcase the resilience of marine life. Explore our app to discover more about these incredible creatures and the secrets of their world.",
-    createdAt: new Date("2024-03-21"),
+    createdAt: "2024-03-21",
     category: "Marine Biology",
     tags: ["deep sea", "marine life", "ocean", "biology", "bioluminescence"]
   },
@@ -108,7 +108,7 @@ export const POSTS = [
       }
     ],
     conclusion: "Fish are vital to our planet's health and survival. Check out our app to learn more about how you can help protect these essential species and their habitats.",
-    createdAt: new Date("2024-03-22"),
+    createdAt: "2024-03-22",
     category: "Marine Biology",
     tags: ["ecosystems", "conservation", "marine life", "sustainability", "environment"]
   },
@@ -139,7 +139,7 @@ export const POSTS = [
       }
     ],
     conclusion: "Endangered fish need our support to survive. Download our app to discover simple actions you can take to help protect these amazing species.",
-    createdAt: new Date("2024-03-23"),
+    createdAt: "2024-03-23",
     category: "Conservation",
     tags: ["endangered species", "conservation", "marine life", "overfishing", "wildlife protection"]
   },
@@ -170,7 +170,7 @@ export const POSTS = [
       }
     ],
     conclusion: "Protecting the ocean starts with simple daily actions. For more tips and fascinating facts about marine life, download our app and join the movement to preserve our planet's blue heart.",
-    createdAt: new Date("2024-03-24"),
+    createdAt: "2024-03-24",
     category: "Conservation",
     tags: ["ocean conservation", "sustainability", "environmental protection", "plastic pollution", "marine life"]
   }

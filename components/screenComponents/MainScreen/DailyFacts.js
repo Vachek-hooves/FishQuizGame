@@ -105,44 +105,12 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     color: '#000',
   },
-//   factCard: {
-//     backgroundColor: '#E5E5E5',
-//     borderRadius: 12,
-//     padding: 16,
-//     marginBottom: 16,
-//     borderWidth: 1,
-//     borderColor: '#E5E5E5',
-//   },
-//   factText: {
-//     fontSize: 16,
-//     color: '#000',
-//     lineHeight: 24,
-//     marginBottom: 16,
-//   },
   actionButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     gap: 16,
   },
-//   ratingButton: {
-//     padding: 8,
-//   },
-//   likeButtonActive: {
-//     backgroundColor: '#E8F8EA', // Light green background
-//     borderRadius: 20,
-//   },
-//   dislikeButtonActive: {
-//     backgroundColor: '#FFE5E5', // Light red background
-//     borderRadius: 20,
-//   },
-//   ratingButtons: {
-//     flexDirection: 'row',
-//     gap: 16,
-//   },
-//   shareButton: {
-//     marginLeft: 'auto',
-//     padding: 8,
-//   },
+
   buttonContainer: {
     flexDirection: 'row',
     gap: 12,
@@ -172,17 +140,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-//   readMoreButton: {
-//     padding: 8,
-//     borderRadius: 8,
-//     backgroundColor: '#007AFF',
-//     alignItems: 'center',
-//   },
-//   readMoreButtonText: {
-//     color: '#FFF',
-//     fontSize: 16,
-//     fontWeight: '600',
-//   },
 });
 
 export default DailyFacts;

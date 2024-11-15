@@ -5,14 +5,15 @@ import PostCard from '../../components/screenComponents/MainScreen/PostCard';
 import { POSTS } from '../../data/posts';
 
 const TabMainScreen = () => {
+  const randomPosts = POSTS.sort(() => Math.random() - 0.5).slice(0, 1);
   return (
     <View style={styles.container}>
       <SafeAreaView />
       <Text style={styles.title}>Fact&Quiz Collection</Text>
+      <ScrollView>
       <DailyFacts />
       <Text style={styles.sectionTitle}>Interesting posts about fishing:</Text>
-      <ScrollView>
-        {POSTS.map(post => (
+        {randomPosts.map(post => (
           <PostCard key={post.id} post={post} />
         ))}
       </ScrollView>
