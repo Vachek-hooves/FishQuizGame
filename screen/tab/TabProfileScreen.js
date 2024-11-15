@@ -134,7 +134,7 @@ const TabProfileScreen = () => {
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled">
         <LinearGradient
-          colors={['#fff', '#F8F8F8', '#007AFF']}
+          colors={['#FFFFFF', '#E6F3F8', '#2D89B4']}
           style={styles.linearGradient}>
           {/* <View style={styles.card}> */}
           <View style={styles.profileContainer}>
@@ -205,35 +205,29 @@ const TabProfileScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  linearGradient: {
-    borderRadius: 16,
-  },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#E6F3F8',
     padding: 16,
     paddingTop: isIOS ? 60 : 16,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#007AFF',
+    color: '#1E6B8C',
     marginBottom: 24,
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
-  card: {
-    // backgroundColor: '#fff',
+  linearGradient: {
     borderRadius: 16,
-    padding: 20,
-    shadowColor: '#007AFF',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    borderWidth: 1,
-    borderColor: '#E5E5E5',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    padding: 16,
   },
   profileContainer: {
     alignItems: 'center',
@@ -281,13 +275,12 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
   },
   nameContainer: {
-    // width: '100%',
-    backgroundColor: '#F8F8F8',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
     padding: 16,
-    width:'90%',
+    width: '90%',
     borderRadius: 12,
-
-    
+    borderWidth: 1,
+    borderColor: '#B2E0F7',
   },
   nameDisplay: {
     flexDirection: 'row',
@@ -328,11 +321,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    shadowColor: '#1E6B8C',
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,

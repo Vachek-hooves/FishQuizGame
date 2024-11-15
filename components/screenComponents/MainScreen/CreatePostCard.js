@@ -13,7 +13,7 @@ const CreatePostCard = () => {
     >
       <Text style={styles.title}>Create your own post</Text>
       <View style={styles.iconContainer}>
-        <Icon name="plus" size={52} color="#007AFF" />
+        <Icon name="plus" size={52} color='#1E6B8C' />
       </View>
     </TouchableOpacity>
   );

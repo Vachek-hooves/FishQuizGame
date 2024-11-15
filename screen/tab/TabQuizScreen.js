@@ -122,7 +122,7 @@ export default TabQuizScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#E6F3F8',
     padding: 16,
     paddingTop: isIOS ? 60 : 10,
   },
@@ -134,8 +134,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#007AFF',
+    color: '#1E6B8C',
     marginBottom: 16,
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   subtitle: {
     fontSize: 16,
@@ -148,11 +151,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: '#E5E5E5',
+    borderColor: '#B2E0F7',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    shadowColor: '#000',
+    shadowColor: '#1E6B8C',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -175,7 +178,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   startButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#2D89B4',
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 6,

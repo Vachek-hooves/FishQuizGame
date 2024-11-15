@@ -17,9 +17,11 @@ const TabNagation = () => {
         animation: 'fade',
         animationDuration: 2000,
         tabBarStyle: {
-          backgroundColor: '#007AFF',
+          backgroundColor: '#1E6B8C',
           height: 80,
           paddingTop: 4,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
         },
         tabBarActiveTintColor: '#FFFFFF',
         tabBarInactiveTintColor: 'rgba(0, 0, 0, 0.5)',

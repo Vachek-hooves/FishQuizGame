@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   readMoreButton: {
     padding: 8,
     borderRadius: 8,
-    backgroundColor: '#007AFF',
+    backgroundColor: '#1E6B8C',
     alignItems: 'center',
   },
   readMoreButtonText: {

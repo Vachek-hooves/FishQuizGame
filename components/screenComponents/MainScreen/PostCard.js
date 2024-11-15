@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   readButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#1E6B8C',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 8,

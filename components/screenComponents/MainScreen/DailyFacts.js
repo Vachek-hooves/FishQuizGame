@@ -120,11 +120,11 @@ const styles = StyleSheet.create({
     padding: 14,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#007AFF',
+    borderColor: '#1E6B8C',
     alignItems: 'center',
   },
   watchButtonText: {
-    color: '#007AFF',
+    color: '#1E6B8C',
     fontSize: 16,
     fontWeight: '600',
   },
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 14,
     borderRadius: 8,
-    backgroundColor: '#007AFF',
+    backgroundColor: '#1E6B8C',
     alignItems: 'center',
   },
   nextButtonText: {
