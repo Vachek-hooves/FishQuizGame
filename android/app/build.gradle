@@ -80,7 +80,7 @@ android {
 
     namespace "com.fishquizgame"
     defaultConfig {
-        applicationId "com.fishquizgame"
+        applicationId "com.fishfact.quizcollection"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
