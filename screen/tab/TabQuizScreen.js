@@ -8,15 +8,18 @@ import {
   Platform,
   Alert,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {useFishStore} from '../../store/fishStore';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TabScreenLayout from '../../components/layout/TabScreenLayout';
+import QuizLoading from '../../components/ui/QuizLoading';
 
 const isIOS = Platform.OS === 'ios';
 
 const TabQuizScreen = ({navigation}) => {
   const {quizData, isLoading, quizPoints, quizUnlockStatus} = useFishStore();
+
+  const [isQuizLoading, setIsQuizLoading] = useState(false);
 
   const handleStartQuiz = quiz => {
     if (!quizUnlockStatus[quiz.id]) {
@@ -27,7 +30,18 @@ const TabQuizScreen = ({navigation}) => {
       );
       return;
     }
-    navigation.navigate('StackQuizGame', {quizId: quiz.id});
+
+    setIsQuizLoading(true);
+
+    const timer=setTimeout(()=>{
+      navigation.navigate('StackQuizGame',{quizId:quiz.id})
+      const resetTimer = setTimeout(() => {
+        setIsQuizLoading(false);
+      }, 550);
+      return () => clearTimeout(resetTimer);
+    }, 2000);
+
+    return () => clearTimeout(timer);
   };
 
   const renderQuizItem = ({item, index}) => {
@@ -79,6 +93,10 @@ const TabQuizScreen = ({navigation}) => {
       </View>
     );
   };
+
+  if (isQuizLoading) {
+    return <QuizLoading />;
+  }
 
   if (isLoading) {
     return (
