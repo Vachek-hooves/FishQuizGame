@@ -25,9 +25,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   lottieContainer: {
-    // flex: 1,
+    flex: 1,
     backgroundColor: 'lightblue',
-    marginTop: 100,
+    justifyContent: 'flex-end',
+    paddingBottom: 50,
   },
   lottie: {
     width: '100%',
