@@ -11,6 +11,7 @@ import {
 import React from 'react';
 import {useFishStore} from '../../store/fishStore';
 import Icon from 'react-native-vector-icons/Ionicons';
+import TabScreenLayout from '../../components/layout/TabScreenLayout';
 
 const isIOS = Platform.OS === 'ios';
 
@@ -35,58 +36,41 @@ const TabQuizScreen = ({navigation}) => {
     const previousQuizPoints = index > 0 ? quizPoints[String(index)] || 0 : 100;
 
     return (
-      <View style={[
-        styles.quizItem,
-        isLocked && styles.lockedQuizItem
-      ]}>
+      <View style={[styles.quizItem, isLocked && styles.lockedQuizItem]}>
         <View style={styles.quizContent}>
           <View style={styles.quizHeader}>
-            <Text style={[
-              styles.quizName,
-              isLocked && styles.lockedText
-            ]}>
+            <Text style={[styles.quizName, isLocked && styles.lockedText]}>
               "{item.quizName}"
             </Text>
-            {isLocked && (
-              <Icon name="lock-closed" size={20} color="#666" />
-            )}
+            {isLocked && <Icon name="lock-closed" size={20} color="#666" />}
           </View>
-          
-          <Text style={[
-            styles.questionsCount,
-            isLocked && styles.lockedText
-          ]}>
-            {isLocked 
+
+          <Text style={[styles.questionsCount, isLocked && styles.lockedText]}>
+            {isLocked
               ? `Complete previous quiz with 80+ points to unlock`
-              : `Here's a quiz with ${item.questions.length} questions`
-            }
+              : `Here's a quiz with ${item.questions.length} questions`}
           </Text>
 
           <View style={styles.quizPointsContainer}>
             <View style={styles.pointsContainer}>
-              <Icon 
-                name="trophy-outline" 
-                size={16} 
-                color={isLocked ? "#666" : "#FFD700"} 
+              <Icon
+                name="trophy-outline"
+                size={16}
+                color={isLocked ? '#666' : '#FFD700'}
               />
-              <Text style={[
-                styles.pointsText,
-                isLocked && styles.lockedText
-              ]}>
+              <Text style={[styles.pointsText, isLocked && styles.lockedText]}>
                 {points} points
               </Text>
             </View>
 
             <TouchableOpacity
-              style={[
-                styles.startButton,
-                isLocked && styles.lockedButton
-              ]}
+              style={[styles.startButton, isLocked && styles.lockedButton]}
               onPress={() => handleStartQuiz(item)}>
-              <Text style={[
-                styles.startButtonText,
-                isLocked && styles.lockedButtonText
-              ]}>
+              <Text
+                style={[
+                  styles.startButtonText,
+                  isLocked && styles.lockedButtonText,
+                ]}>
                 {isLocked ? 'Locked' : points > 0 ? 'Try Again' : 'Start quiz'}
               </Text>
             </TouchableOpacity>
@@ -105,15 +89,19 @@ const TabQuizScreen = ({navigation}) => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>QUIZZES</Text>
-      <Text style={styles.subtitle}>All quizzes:</Text>
-      <FlatList
-        data={quizData}
-        keyExtractor={item => item.id.toString()}
-        renderItem={renderQuizItem}
-      />
-    </View>
+    <TabScreenLayout>
+      <View style={styles.container}>
+        <Text style={styles.title}>QUIZZES</Text>
+        <Text style={styles.subtitle}>All quizzes:</Text>
+        <FlatList
+          data={quizData}
+          keyExtractor={item => item.id.toString()}
+          renderItem={renderQuizItem}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+      <View style={{height:80}}></View>
+    </TabScreenLayout>
   );
 };
 
@@ -122,7 +110,7 @@ export default TabQuizScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E6F3F8',
+    // backgroundColor: '#E6F3F8',
     padding: 16,
     paddingTop: isIOS ? 60 : 10,
   },
@@ -137,7 +125,7 @@ const styles = StyleSheet.create({
     color: '#1E6B8C',
     marginBottom: 16,
     textShadowColor: 'rgba(0, 0, 0, 0.1)',
-    textShadowOffset: { width: 1, height: 1 },
+    textShadowOffset: {width: 1, height: 1},
     textShadowRadius: 2,
   },
   subtitle: {

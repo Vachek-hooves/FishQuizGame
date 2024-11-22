@@ -1,69 +1,71 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 // import ProgressBar from '../../components/ProgressBar';
 import ProgressBar from '../../components/ui/ProgressBar';
+import TabScreenLayout from '../../components/layout/TabScreenLayout';
 
 const isIOS = Platform.OS === 'ios';
 
-const StackQuizFinish = ({ route, navigation }) => {
-  const { correctAnswers, totalQuestions } = route.params;
+const StackQuizFinish = ({route, navigation}) => {
+  const {correctAnswers, totalQuestions} = route.params;
   const score = (correctAnswers / totalQuestions) * 100;
   const progress = correctAnswers / totalQuestions;
 
   const handleFinish = () => {
     // navigation.navigate('TabQuizScreen');
-    navigation.navigate('TabNavigation',{
-        screen: 'TabQuizScreen',
+    navigation.navigate('TabNavigation', {
+      screen: 'TabQuizScreen',
     });
   };
 
-//   const handleShare = () => {
-//     // Implement share functionality
-//     console.log('Share functionality to be implemented');
-//   };
+  //   const handleShare = () => {
+  //     // Implement share functionality
+  //     console.log('Share functionality to be implemented');
+  //   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Quiz</Text>
+    <TabScreenLayout>
+      <View style={styles.container}>
+        <Text style={styles.title}>Quiz</Text>
 
-      <View style={styles.progressContainer}>
-        <ProgressBar progress={progress} />
-        <Text style={styles.progressText}>
-          {correctAnswers}/{totalQuestions}
-        </Text>
-      </View>
-
-      <View style={styles.resultContainer}>
-        <View style={styles.resultIconContainer}>
-          <Icon name="checkmark" size={24} color="#4CD964" />
+        <View style={styles.progressContainer}>
+          <ProgressBar progress={progress} />
+          <Text style={styles.progressText}>
+            {correctAnswers}/{totalQuestions}
+          </Text>
         </View>
-        <Text style={styles.resultText}>Correct answers</Text>
-        <Text style={styles.scoreText}>{correctAnswers}/{totalQuestions}</Text>
-      </View>
 
-      <TouchableOpacity 
-        style={styles.finishButton}
-        onPress={handleFinish}
-      >
-        <Text style={styles.finishButtonText}>Finish</Text>
-      </TouchableOpacity>
+        <View style={styles.resultContainer}>
+          <View style={styles.resultIconContainer}>
+            <Icon name="checkmark" size={24} color="#4CD964" />
+          </View>
+          <Text style={styles.resultText}>Correct answers</Text>
+          <Text style={styles.scoreText}>
+            {correctAnswers}/{totalQuestions}
+          </Text>
+        </View>
 
-      {/* <TouchableOpacity 
+        <TouchableOpacity style={styles.finishButton} onPress={handleFinish}>
+          <Text style={styles.finishButtonText}>Finish</Text>
+        </TouchableOpacity>
+
+        {/* <TouchableOpacity 
         style={styles.shareButton}
         onPress={handleShare}
       >
         <Icon name="share-outline" size={20} color="#007AFF" />
         <Text style={styles.shareButtonText}>Share</Text>
       </TouchableOpacity> */}
-    </View>
+      </View>
+    </TabScreenLayout>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     padding: 16,
     paddingTop: isIOS ? 60 : 16,
   },
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E5E5E5',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     marginTop: 'auto',
-    marginBottom: '15%',
+    marginBottom: '25%',
   },
   finishButtonText: {
     color: '#fff',
