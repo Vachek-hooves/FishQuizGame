@@ -16,6 +16,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import TabScreenLayout from '../../components/layout/TabScreenLayout';
+import LoginAnimation from '../../components/ui/LoginAnimation';
 const PROFILE_STORAGE_KEY = '@user_profile';
 const isIOS = Platform.OS === 'ios';
 
@@ -160,6 +161,7 @@ const TabProfileScreen = () => {
                 </TouchableOpacity>
               </View>
 
+             
               <View
                 style={[
                   styles.nameContainer,
@@ -190,6 +192,7 @@ const TabProfileScreen = () => {
                         <Icon name="checkmark" size={20} color="#4CD964" />
                       </TouchableOpacity>
                     </View>
+                   
                   </View>
                 ) : (
                   <TouchableOpacity
@@ -201,12 +204,13 @@ const TabProfileScreen = () => {
                     <Icon name="pencil" size={20} color="#007AFF" />
                   </TouchableOpacity>
                 )}
-              </View>
+              </View>  
+               <LoginAnimation/>
             </View>
-            <View style={{height: 100}}></View>
           </LinearGradient>
         </ScrollView>
       </View>
+            <View style={{height: 100}}/>
     </TabScreenLayout>
   );
 };
@@ -235,6 +239,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: 16,
+    
   },
   profileContainer: {
     alignItems: 'center',
