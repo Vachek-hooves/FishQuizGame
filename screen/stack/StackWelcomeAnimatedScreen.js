@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Animated} from 'react-native';
 import LottieView from 'lottie-react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-const StackWelcomeAnimatedScreen = () => {
+const StackWelcomeAnimatedScreen = ({navigation}) => {
   const moveAnim = useRef(new Animated.Value(600)).current;
 
   useEffect(() => {
@@ -11,7 +11,9 @@ const StackWelcomeAnimatedScreen = () => {
       toValue: 0,
       duration: 2000,
       useNativeDriver: true,
-    }).start();
+    }).start(()=>{
+      navigation.navigate('TabNavigation');
+    },1000);
   }, []);
 
   return (
@@ -20,7 +22,7 @@ const StackWelcomeAnimatedScreen = () => {
         colors={['lightblue','lightblue', '#93C5FD','#93C5FD', '#003399', '#003399']}
       start={{x: 0, y: 0}}
         end={{x: 0, y: 1}}
-        locations={[0, 0.3,0.4, 0.5, 0.7, 0.9, 1]}
+        locations={[ 0.3,0.4, 0.5, 0.7, 0.9, 1]}
         style={styles.lottieContainer}
       >
 

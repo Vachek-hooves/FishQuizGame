@@ -134,7 +134,7 @@ const TabProfileScreen = () => {
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled">
         <LinearGradient
-          colors={['#FFFFFF', '#E6F3F8', '#2D89B4']}
+          colors={['#FFFFFF', '#E6F3F8', '#003399']}
           style={styles.linearGradient}>
           {/* <View style={styles.card}> */}
           <View style={styles.profileContainer}>
@@ -169,7 +169,7 @@ const TabProfileScreen = () => {
                     placeholder="Enter your name"
                     placeholderTextColor="#666"
                     autoFocus
-                    maxLength={30}
+                    maxLength={10}
                   />
                   <View style={styles.editButtons}>
                     <TouchableOpacity

@@ -22,7 +22,7 @@ function App() {
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
-            animation: 'simple_push',
+            animation: 'fade',
             animationDuration: 1000,
           }}>
           <Stack.Screen
