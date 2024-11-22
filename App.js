@@ -7,6 +7,7 @@ import {
   StackQuizFinish,
   StackDailyFactDetails,
   StackLikedFacts,
+  StackWelcomeAnimatedScreen,
 } from './screen/stack';
 import {FishStoreProvider} from './store/fishStore';
 import PostCardDetails from './components/screenComponents/MainScreen/PostCardDetails';
@@ -24,6 +25,10 @@ function App() {
             animation: 'simple_push',
             animationDuration: 1000,
           }}>
+          <Stack.Screen
+            name="StackWelcomeAnimatedScreen"
+            component={StackWelcomeAnimatedScreen}
+          />
           <Stack.Screen
             name="StackWelcomeScreen"
             component={StackWelcomeScreen}
