@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
+import TabScreenLayout from '../../components/layout/TabScreenLayout';
 const PROFILE_STORAGE_KEY = '@user_profile';
 const isIOS = Platform.OS === 'ios';
 
@@ -127,97 +128,103 @@ const TabProfileScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Profile</Text>
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
-        keyboardShouldPersistTaps="handled">
-        <LinearGradient
-          colors={['#FFFFFF', '#E6F3F8', '#003399']}
-          style={styles.linearGradient}>
-          <View style={styles.profileContainer}>
-            <View style={styles.imageWrapper}>
-              <TouchableOpacity
-                style={styles.imageContainer}
-                onPress={handleImagePick}>
-                {profile.imageUri ? (
-                  <Image
-                    source={{uri: profile.imageUri}}
-                    style={styles.profileImage}
-                  />
-                ) : (
-                  <View style={styles.placeholderImage}>
-                    <Icon name="person" size={40} color="#666" />
-                    <Text style={styles.placeholderText}>Add Photo</Text>
-                  </View>
-                )}
-                <View style={styles.editImageButton}>
-                  <Icon name="camera" size={16} color="#fff" />
-                </View>
-              </TouchableOpacity>
-            </View>
-
-            <View style={[styles.nameContainer, isEditing && styles.nameContainerEditing]}>
-              {isEditing ? (
-                <View style={styles.editContainer}>
-                  <TextInput
-                    style={styles.nameInput}
-                    value={tempName}
-                    onChangeText={setTempName}
-                    placeholder="Enter your name"
-                    placeholderTextColor="#666"
-                    autoFocus
-                    maxLength={20}
-                    returnKeyType="done"
-                    onSubmitEditing={saveEditing}
-                  />
-                  <View style={styles.editButtons}>
-                    <TouchableOpacity
-                      style={[styles.editButton, styles.cancelButton]}
-                      onPress={cancelEditing}>
-                      <Icon name="close" size={20} color="#FF3B30" />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={[styles.editButton, styles.saveButton]}
-                      onPress={saveEditing}>
-                      <Icon name="checkmark" size={20} color="#4CD964" />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              ) : (
+    <TabScreenLayout>
+      <View style={styles.container}>
+        <Text style={styles.title}>Profile</Text>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled">
+          <LinearGradient
+            colors={['#FFFFFF', '#E6F3F8', '#003399']}
+            style={styles.linearGradient}>
+            <View style={styles.profileContainer}>
+              <View style={styles.imageWrapper}>
                 <TouchableOpacity
-                  style={styles.nameDisplay}
-                  onPress={startEditing}>
-                  <Text style={styles.nameText}>
-                    {profile.name || 'Add your name'}
-                  </Text>
-                  <Icon name="pencil" size={20} color="#007AFF" />
+                  style={styles.imageContainer}
+                  onPress={handleImagePick}>
+                  {profile.imageUri ? (
+                    <Image
+                      source={{uri: profile.imageUri}}
+                      style={styles.profileImage}
+                    />
+                  ) : (
+                    <View style={styles.placeholderImage}>
+                      <Icon name="person" size={40} color="#666" />
+                      <Text style={styles.placeholderText}>Add Photo</Text>
+                    </View>
+                  )}
+                  <View style={styles.editImageButton}>
+                    <Icon name="camera" size={16} color="#fff" />
+                  </View>
                 </TouchableOpacity>
-              )}
+              </View>
+
+              <View
+                style={[
+                  styles.nameContainer,
+                  isEditing && styles.nameContainerEditing,
+                ]}>
+                {isEditing ? (
+                  <View style={styles.editContainer}>
+                    <TextInput
+                      style={styles.nameInput}
+                      value={tempName}
+                      onChangeText={setTempName}
+                      placeholder="Enter your name"
+                      placeholderTextColor="#666"
+                      autoFocus
+                      maxLength={20}
+                      returnKeyType="done"
+                      onSubmitEditing={saveEditing}
+                    />
+                    <View style={styles.editButtons}>
+                      <TouchableOpacity
+                        style={[styles.editButton, styles.cancelButton]}
+                        onPress={cancelEditing}>
+                        <Icon name="close" size={20} color="#FF3B30" />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={[styles.editButton, styles.saveButton]}
+                        onPress={saveEditing}>
+                        <Icon name="checkmark" size={20} color="#4CD964" />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                ) : (
+                  <TouchableOpacity
+                    style={styles.nameDisplay}
+                    onPress={startEditing}>
+                    <Text style={styles.nameText}>
+                      {profile.name || 'Add your name'}
+                    </Text>
+                    <Icon name="pencil" size={20} color="#007AFF" />
+                  </TouchableOpacity>
+                )}
+              </View>
             </View>
-          </View>
-          <View style={{height: 100}}></View>
-        </LinearGradient>
-      </ScrollView>
-    </View>
+            <View style={{height: 100}}></View>
+          </LinearGradient>
+        </ScrollView>
+      </View>
+    </TabScreenLayout>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E6F3F8',
+    // backgroundColor: '#E6F3F8',
     padding: 16,
     paddingTop: isIOS ? 60 : 16,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#1E6B8C',
+    color: '#003399',
     marginBottom: 24,
     textShadowColor: 'rgba(0, 0, 0, 0.1)',
-    textShadowOffset: { width: 1, height: 1 },
+    textShadowOffset: {width: 1, height: 1},
     textShadowRadius: 2,
   },
   linearGradient: {
