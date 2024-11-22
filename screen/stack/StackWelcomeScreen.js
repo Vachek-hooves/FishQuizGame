@@ -1,21 +1,23 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import FishImage from '../../components/ui/FishImage';
 
 export function StackWelcomeScreen({navigation}) {
   return (
     <View style={styles.container}>
-      <Image
+      <FishImage />
+      {/* <Image
         source={require('../../assets/icons/fish.png')} // Make sure to add your fish image to assets
         style={styles.fishImage}
-      />
+      /> */}
       <Text style={styles.title}>Welcome to the{'\n'}WORLD OF BASS FISH</Text>
       <Text style={styles.subtitle}>
-        Discover interesting facts about bass, take quizzes, and share your knowledge with friends.
+        Discover interesting facts about bass, take quizzes, and share your
+        knowledge with friends.
       </Text>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('TabNavigation')}
-      >
+        onPress={() => navigation.navigate('TabNavigation')}>
         <Text style={styles.buttonText}>Let's go!</Text>
       </TouchableOpacity>
     </View>
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#007AFF',
+    color: '#1E6B8C',
     textAlign: 'center',
     marginBottom: 20,
   },
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   button: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#1E6B8C',
     paddingVertical: 15,
     paddingHorizontal: 40,
     borderRadius: 8,
@@ -64,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StackWelcomeScreen
+export default StackWelcomeScreen;
