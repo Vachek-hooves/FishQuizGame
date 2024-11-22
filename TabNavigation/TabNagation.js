@@ -11,17 +11,23 @@ const Tab = createBottomTabNavigator();
 
 const TabNagation = () => {
   return (
+    
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         animation: 'fade',
         animationDuration: 2000,
         tabBarStyle: {
-          backgroundColor: '#003399',
+          // backgroundColor: '#003399',
           height: 90,
           paddingTop: 8,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
+          position: 'absolute',
+          backgroundColor: 'rgba(0, 51, 153, 0.0)',
+          borderTopWidth: 0,
+          elevation: 0, // Removes Android shadow
+          shadowOpacity: 0, // Removes iOS shadow
         },
         tabBarActiveTintColor: '#FFFFFF',
         tabBarInactiveTintColor: 'rgba(0, 0, 0, 0.5)',

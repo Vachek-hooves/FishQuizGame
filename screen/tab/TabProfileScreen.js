@@ -136,7 +136,6 @@ const TabProfileScreen = () => {
         <LinearGradient
           colors={['#FFFFFF', '#E6F3F8', '#003399']}
           style={styles.linearGradient}>
-          {/* <View style={styles.card}> */}
           <View style={styles.profileContainer}>
             <View style={styles.imageWrapper}>
               <TouchableOpacity
@@ -159,7 +158,7 @@ const TabProfileScreen = () => {
               </TouchableOpacity>
             </View>
 
-            <View style={styles.nameContainer}>
+            <View style={[styles.nameContainer, isEditing && styles.nameContainerEditing]}>
               {isEditing ? (
                 <View style={styles.editContainer}>
                   <TextInput
@@ -169,7 +168,9 @@ const TabProfileScreen = () => {
                     placeholder="Enter your name"
                     placeholderTextColor="#666"
                     autoFocus
-                    maxLength={10}
+                    maxLength={20}
+                    returnKeyType="done"
+                    onSubmitEditing={saveEditing}
                   />
                   <View style={styles.editButtons}>
                     <TouchableOpacity
@@ -197,7 +198,6 @@ const TabProfileScreen = () => {
             </View>
           </View>
           <View style={{height: 100}}></View>
-          {/* </View> */}
         </LinearGradient>
       </ScrollView>
     </View>
@@ -275,12 +275,24 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
   },
   nameContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: '#FFFFFF',
     padding: 16,
     width: '90%',
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#B2E0F7',
+    marginTop: 20,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  nameContainerEditing: {
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
   },
   nameDisplay: {
     flexDirection: 'row',
@@ -304,14 +316,16 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 12,
     color: '#000',
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
     textAlign: 'center',
+    minHeight: 50,
+    marginBottom: 16,
   },
   editButtons: {
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 16,
-    marginTop: 16,
+    marginTop: 8,
   },
   editButton: {
     padding: 12,
@@ -320,12 +334,15 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    shadowColor: '#1E6B8C',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    backgroundColor: '#FFFFFF',
     elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
   },
   cancelButton: {
     backgroundColor: '#FFF5F5',
