@@ -37,6 +37,7 @@ const TabMainScreen = () => {
           <View style={styles.space} />
         </ScrollView>
       </View>
+      <View style={{height:100}}></View>
     </TabScreenLayout>
   );
 };

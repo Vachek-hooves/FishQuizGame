@@ -1,34 +1,36 @@
-import React, { useState } from 'react';
-import { 
-  StyleSheet, 
-  Text, 
-  View, 
-  TextInput, 
-  TouchableOpacity, 
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
   ScrollView,
-  Alert 
+  Alert,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useFishStore } from '../../../store/fishStore';
-const CreatePostForm = ({ onSubmit }) => {
-  const { addCustomPost } = useFishStore();
+import {useNavigation} from '@react-navigation/native';
+import {useFishStore} from '../../../store/fishStore';
+import SimpleLoading from '../../ui/SimpleLoading';
+const CreatePostForm = ({onSubmit}) => {
+  const {addCustomPost} = useFishStore();
   const navigation = useNavigation();
   const [title, setTitle] = useState('');
   const [introduction, setIntroduction] = useState('');
-  const [facts, setFacts] = useState([{ title: '', content: '' }]);
+  const [facts, setFacts] = useState([{title: '', content: ''}]);
   const [conclusion, setConclusion] = useState('');
+  const [isDataSaving, setIsDataSaving] = useState(false);
 
   const addFact = () => {
-    setFacts([...facts, { title: '', content: '' }]);
+    setFacts([...facts, {title: '', content: ''}]);
   };
 
   const updateFact = (index, field, value) => {
     const updatedFacts = [...facts];
-    updatedFacts[index] = { ...updatedFacts[index], [field]: value };
+    updatedFacts[index] = {...updatedFacts[index], [field]: value};
     setFacts(updatedFacts);
   };
 
-  const removeFact = (index) => {
+  const removeFact = index => {
     if (facts.length > 1) {
       const updatedFacts = facts.filter((_, i) => i !== index);
       setFacts(updatedFacts);
@@ -48,15 +50,28 @@ const CreatePostForm = ({ onSubmit }) => {
       facts,
       conclusion,
       createdAt: new Date().toISOString(),
-      isCustom: true
+      isCustom: true,
     };
 
+    setIsDataSaving(true);
+
     addCustomPost(newPost);
-    navigation.goBack();
+
+    const timer = setTimeout(() => {
+      navigation.goBack();
+      const resetTimer = setTimeout(() => {
+        setIsDataSaving(false);
+      }, 1000);
+      return () => clearTimeout(resetTimer);
+    }, 2000);
+    return () => clearTimeout(timer);
   };
 
+  if (isDataSaving) {
+    return <SimpleLoading />;
+  }
+
   return (
-    
     <ScrollView style={styles.container}>
       <Text style={styles.label}>Title</Text>
       <TextInput
@@ -81,20 +96,19 @@ const CreatePostForm = ({ onSubmit }) => {
           <TextInput
             style={styles.input}
             value={fact.title}
-            onChangeText={(value) => updateFact(index, 'title', value)}
+            onChangeText={value => updateFact(index, 'title', value)}
             placeholder="Fact title"
           />
           <TextInput
             style={[styles.input, styles.textArea]}
             value={fact.content}
-            onChangeText={(value) => updateFact(index, 'content', value)}
+            onChangeText={value => updateFact(index, 'content', value)}
             placeholder="Fact content"
             multiline
           />
-          <TouchableOpacity 
-            style={styles.removeButton} 
-            onPress={() => removeFact(index)}
-          >
+          <TouchableOpacity
+            style={styles.removeButton}
+            onPress={() => removeFact(index)}>
             <Text style={styles.removeButtonText}>Remove Fact</Text>
           </TouchableOpacity>
         </View>
@@ -116,7 +130,9 @@ const CreatePostForm = ({ onSubmit }) => {
       <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
         <Text style={styles.submitButtonText}>Create Post</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}>
         <Text style={styles.backButtonText}>Back</Text>
       </TouchableOpacity>
       <View style={styles.space} />

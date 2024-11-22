@@ -18,7 +18,6 @@ const isIOS = Platform.OS === 'ios';
 
 const TabQuizScreen = ({navigation}) => {
   const {quizData, isLoading, quizPoints, quizUnlockStatus} = useFishStore();
-
   const [isQuizLoading, setIsQuizLoading] = useState(false);
 
   const handleStartQuiz = quiz => {
