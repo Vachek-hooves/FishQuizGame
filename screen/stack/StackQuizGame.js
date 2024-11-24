@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     borderColor: '#FF3B30',
   },
   continueButton: {
-    backgroundColor: '#1E6B8C',
+    backgroundColor: '#007AFF',
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',

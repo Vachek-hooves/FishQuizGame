@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {AppState, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {AppState, StyleSheet, TouchableOpacity, } from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {TabMainScreen, TabQuizScreen, TabProfileScreen} from '../screen/tab';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,7 +19,7 @@ const TabNagation = () => {
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
-      if (nextAppState === 'active' && isPlayMusic) {
+      if (nextAppState === 'active' && isMusicPlay) {
         playBackgroundMusic();
       } else if (nextAppState === 'inactive' || nextAppState === 'background') {
         pauseBackgroundMusic();
