@@ -13,8 +13,8 @@ workflows:
       BUNDLE_ID: 'com.fishfacts.quiz'
       XCODE_WORKSPACE: 'FishFactQuizCollection.xcworkspace'
       CODE_SCHEME: 'FishFactQuizCollection'
-  scripts:
-    - name: Install node modules
+    scripts:
+      - name: Install node modules
         script: |
           npm install
       - name: Install CocoaPods dependencies
